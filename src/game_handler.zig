@@ -1,5 +1,5 @@
-
 const std = @import("std");
+const ev = @import("event.zig");
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
@@ -11,10 +11,12 @@ pub const SDLErrors = error {
     SdlInitError,
     SdlInitWindowError,
 };
+//pub const eventHandlerFunc = *const fn (state: *GameHandler) !void; 
 pub const GameHandler = struct{
     window: *c.SDL_Window,
-    current_event: c.SDL_Event = undefined,
+    current_event: ev.Event = undefined,
     running: bool = true,
+
 
     pub fn init() !GameHandler {
         if(!c.SDL_Init(c.SDL_INIT_VIDEO)) {
@@ -33,9 +35,8 @@ pub const GameHandler = struct{
     }
 
     pub fn update(self: *GameHandler) void {
-        _ = c.SDL_PollEvent(&self.current_event);
-        if(self.current_event.type == c.SDL_EVENT_QUIT) {self.deinit(); self.running = false;}
-        std.debug.print("{any}\n", .{self.current_event});
+        self.current_event.poll();
+        if(self.current_event.getType() == c.SDL_EVENT_QUIT) {self.deinit(); self.running = false;}
     }
 
     pub fn deinit(self: *GameHandler) void {

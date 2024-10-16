@@ -4,6 +4,7 @@
 
 const std = @import("std");
 const GameHandler = @import("game_handler.zig").GameHandler;
+const ev = @import("event.zig");
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
@@ -18,5 +19,15 @@ pub fn main() !void {
     
     while(gh.running) {
         gh.update();
+        handleEvents(&gh);
     }
+}
+
+fn handleEvents(gamestate: *GameHandler) void {
+    const event_type = gamestate.current_event.getType();
+
+    if(event_type == c.SDL_EVENT_MOUSE_MOTION) {
+        std.debug.print("yooo", .{});
+    }
+
 }
