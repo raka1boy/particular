@@ -27,7 +27,7 @@ fn handleEvents(gamestate: *GameHandler) void {
     const event_type = gamestate.current_event.getType();
 
     if(event_type == c.SDL_EVENT_MOUSE_MOTION) {
-        std.debug.print("yooo", .{});
+        std.debug.print("1", .{});
     }
 
 }
