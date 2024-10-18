@@ -1,5 +1,6 @@
 const std = @import("std");
 const ev = @import("event.zig");
+const Camera = @import("camera.zig").Camera;
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
@@ -14,6 +15,7 @@ pub const SDLErrors = error {
 //pub const eventHandlerFunc = *const fn (state: *GameHandler) !void; 
 pub const GameHandler = struct{
     window: *c.SDL_Window,
+    camera: Camera = Camera.initAtZero(),
     current_event: ev.Event = undefined,
     running: bool = true,
 

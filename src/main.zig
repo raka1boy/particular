@@ -1,10 +1,8 @@
-//! By convention, main.zig is where your main function lives in the case that
-//! you are building an executable. If you are making a library, the convention
-//! is to delete this file and start with root.zig instead.
-
 const std = @import("std");
 const GameHandler = @import("game_handler.zig").GameHandler;
-const ev = @import("event.zig");
+const SurrHandle = @import("surroundings_handle.zig");
+const Material = SurrHandle.Material;
+const Color = @import("colors.zig").Color;
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
@@ -12,6 +10,11 @@ const c = @cImport({
     @cInclude("SDL3/SDL_main.h");
     @cInclude("SDL3/SDL_vulkan.h");
 });
+
+const Materials = [_]Material{
+    .{1,},
+
+}
 
 pub fn main() !void {
     var gh = try GameHandler.init();
@@ -27,7 +30,7 @@ fn handleEvents(gamestate: *GameHandler) void {
     const event_type = gamestate.current_event.getType();
 
     if(event_type == c.SDL_EVENT_MOUSE_MOTION) {
-        std.debug.print("1", .{});
+        std.debug.print("{any}\n", .{gamestate.*.camera.getMousePos()});
     }
 
 }

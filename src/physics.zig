@@ -6,4 +6,4 @@ const c = @cImport({
     @cInclude("SDL3/SDL_main.h");
 });
 
-pu
+pub 

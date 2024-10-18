@@ -12,10 +12,16 @@ const c = @cImport({
 pub const Object = struct {
     pos:Vec2,
 
+    pub fn initWithPos(pos:Vec2) Object {
+        return .{.pos = pos};   
+    }
     pub fn teleportTo(self: *Object,new_pos:Vec2) void {
         self.pos = new_pos;
     }
     pub fn moveTowards(self: *Object,dest:Vec2,speed:u32) void {
-        
+        _ = self;
+        _ = dest;
+        _ = speed;
+        unreachable;
     }
 };
