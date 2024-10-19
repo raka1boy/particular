@@ -1,20 +1,11 @@
 const std = @import("std");
-const GameHandler = @import("game_handler.zig").GameHandler;
-const SurrHandle = @import("surroundings_handle.zig");
-const Material = SurrHandle.Material;
-const Color = @import("colors.zig").Color;
-const c = @cImport({
-    @cDefine("SDL_DISABLE_OLD_NAMES", {});
-    @cInclude("SDL3/SDL.h");
-    @cDefine("SDL_MAIN_HANDLED", {});
-    @cInclude("SDL3/SDL_main.h");
-    @cInclude("SDL3/SDL_vulkan.h");
-});
-
+const particular = @import("root");
+const Material = particular.Material;
+const col = particular.Color;
+const GameHandler = particular.GameHandler;
 const Materials = [_]Material{
-    .{1,},
-
-}
+    .{1,col.staticColor(50,50,50,255), },
+};
 
 pub fn main() !void {
     var gh = try GameHandler.init();

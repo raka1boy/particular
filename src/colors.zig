@@ -6,7 +6,7 @@ const c = @cImport({
     @cInclude("SDL3/SDL_main.h");
 });
 const StaticColor = @Vector(4,u8);
-const Color = extern union(enum) {
+const Color = extern union {
     static:StaticColor,
     gradient: [2]StaticColor,
 };
