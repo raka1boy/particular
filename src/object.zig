@@ -1,6 +1,6 @@
 const std = @import("std");
-const ev = @import("event.zig");
-const Vec2 = @import("coordinates.zig").Vec2;
+const particular = @import("root.zig");
+const Vec2 = particular.Vec2;
 const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
@@ -9,19 +9,22 @@ const c = @cImport({
     @cInclude("SDL3/SDL_vulkan.h");
 });
 
-pub const Object = struct {
-    pos:Vec2,
+pub fn Object(comptime T: type, ) type {
+    return struct {
+        const Self = @This();
+        pos:Vec2(T),
 
-    pub fn initWithPos(pos:Vec2) Object {
-        return .{.pos = pos};   
-    }
-    pub fn teleportTo(self: *Object,new_pos:Vec2) void {
-        self.pos = new_pos;
-    }
-    pub fn moveTowards(self: *Object,dest:Vec2,speed:u32) void {
-        _ = self;
-        _ = dest;
-        _ = speed;
-        unreachable;
-    }
-};
+        pub fn initWithPos(pos:Vec2(T)) Self {
+            return .{.pos = pos};   
+        }
+        pub fn teleportTo(self: *Self,new_pos:Vec2(T)) void {
+            self.pos = new_pos;
+        }
+        pub fn moveTowards(self: *Self,dest:Vec2(T),speed:u32) void {
+            _ = self;
+            _ = dest;
+            _ = speed;
+            unreachable;
+        }
+    };
+}

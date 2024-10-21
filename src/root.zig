@@ -1,10 +1,11 @@
-const std = @import("std");
-const gh = @import("game_handler.zig");
-const GameHandler = gh.GameHandler;
-//const SurroundingsHandle = gh.
-const Material = SurrHandle.Material;
-const col = @import("colors.zig");
-const c = @cImport({
+pub const std = @import("std");
+pub const gamehandler = @import("game_handler.zig");
+pub const GameHandler = gamehandler.GameHandler;
+pub const Camera = @import("camera.zig").Camera;
+pub const Material = gamehandler.Material;
+pub const color = @import("colors.zig");
+pub const Vec2 = @import("coordinates.zig").Vec2;
+pub const c = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
     @cDefine("SDL_MAIN_HANDLED", {});

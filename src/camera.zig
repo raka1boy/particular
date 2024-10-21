@@ -10,25 +10,25 @@ const c = @cImport({
     @cInclude("SDL3/SDL_vulkan.h");
 });
 pub const Camera = struct {
-    obj:Object,
+    obj:Object(f64),
     zoom:i32,
 
-    pub fn init(pos:Vec2) Camera {
-        return .{.obj = Object.initWithPos(pos), .zoom = 0};
+    pub fn init(pos:Vec2(f64)) Camera {
+        return .{.obj = Object(f64).initWithPos(pos), .zoom = 0};
     }
     pub fn initAtZero() Camera {
-        return .{.obj = Object.initWithPos(Vec2.init(0,0)), .zoom = 0};
+        return .{.obj = Object(f64).initWithPos(Vec2(f64).init(0,0)), .zoom = 0};
     }
-    pub fn getMousePos(self: *Camera) Vec2 {
+    pub fn getMousePos(self: *Camera) Vec2(f64) {
         _ = self;
-        var vect = Vec2.init(0,0);
+        var vect = Vec2(f64).init(0,0);
         _ = c.SDL_GetMouseState(@ptrCast(&vect.pos[0]), @ptrCast(&vect.pos[1]));
         return vect;
     }
 
-    pub fn getMousePos2(self: *Camera) Vec2 {
+    pub fn getMousePos2(self: *Camera) Vec2(f64) {
         //ГЛЕБ УЖЕ НЕ НАПИСАЛ   
-        var vect = Vec2.init(0,0);
+        var vect = Vec2(f64).init(0,0);
         _ = c.SDL_GetMouseState(@ptrCast(&vect.pos[0]), @ptrCast(&vect.pos[1]));
         return vect.add(self.obj.pos).negate();
         //return ray.getMousePosition().add(state.cam.pos.negate());
